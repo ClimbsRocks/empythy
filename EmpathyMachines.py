@@ -9,10 +9,12 @@ import utils
 
 module_path = os.path.dirname(__file__)
 
+
 class EmpathyMachines(object):
 
     def __init__(self):
         pass
+
 
     def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False):
         corpus_file_path = os.path.join(module_path, 'corpora', 'aggregatedCorpusCleanedAndFiltered.csv')
@@ -40,7 +42,7 @@ class EmpathyMachines(object):
             # convert all characters to lowercase
             lowercase=True,
             # keep only this many features (all features if None)
-            max_features=3000,
+            max_features=10000,
             # smooth idf weights to prevent zero divisions
             smooth_idf=True
         )
@@ -69,11 +71,8 @@ class EmpathyMachines(object):
 
 
     def predict(self, text):
-        print(text)
-        print(len(text))
         if isinstance(text, basestring):
             transformed_text = self.tfidf_transformer.transform([text])
         elif type(text) is list:
             transformed_text = self.tfidf_transformer.transform(text)
         return self.trained_model.predict(transformed_text)
-
