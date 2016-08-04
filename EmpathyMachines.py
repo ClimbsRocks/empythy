@@ -14,23 +14,22 @@ class EmpathyMachines(object):
     def __init__(self):
         pass
 
-    def train(self, corpus='Twitter', corpus_array=None):
+    def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False):
         corpus_file_path = os.path.join(module_path, 'corpora', 'aggregatedCorpusCleaned.csv')
         if corpus == 'passed_in_argument':
             raw_data = corpus_array
         else:
             raw_data = utils.load_dataset(corpus_file_path)
-        # print('raw_data[:10]')
-        # print(raw_data[:10])
 
         corpus_strings, sentiments = utils.clean_initial_data(raw_data, confidence_threshold=0.5)
 
-        print('len(corpus_strings)')
-        print(len(corpus_strings))
-        print(corpus_strings[:10])
-        print('len(sentiments)')
-        print(len(sentiments))
-        print(sentiments[:10])
+        if print_analytics_results:
+            print('len(corpus_strings)')
+            print(len(corpus_strings))
+            print(corpus_strings[:10])
+            print('len(sentiments)')
+            print(len(sentiments))
+            print(sentiments[:10])
 
         tfidf = TfidfVectorizer(
             # if we fail to parse a given character, just ignore it
@@ -55,4 +54,21 @@ class EmpathyMachines(object):
         )
 
         sparse_transformed_corpus = tfidf.fit_transform(corpus_strings)
-        X_train, X_test, y_train, y_test = train_test_split(sparse_transformed_corpus, sentiments, test_size=0.2)
+        if print_analytics_results:
+            X_train, X_test, y_train, y_test = train_test_split(sparse_transformed_corpus, sentiments, test_size=0.2)
+        else:
+            X_train = sparse_transformed_corpus
+            y_train = sentiments
+
+        model = LogisticRegression()
+
+        model.fit_transform(X_train, y_train)
+
+        self.trained_model = model
+
+        if print_analytics_results:
+            print('Model\'s score on the training data:')
+            print(self.trained_model.score(X_train, y_train))
+            print('Model\'s score on the holdout data:')
+            print(self.trained_model.score(X_test, y_test))
+
