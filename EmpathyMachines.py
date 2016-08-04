@@ -17,13 +17,21 @@ class EmpathyMachines(object):
 
 
     def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False):
-        corpus_file_path = os.path.join(module_path, 'corpora', 'aggregatedCorpusCleanedAndFiltered.csv')
         if corpus == 'passed_in_argument':
             raw_data = corpus_array
-        else:
+
+        elif corpus.lower() == 'twitter':
+            corpus_file_path = os.path.join(module_path, 'corpora', 'aggregatedCorpusCleanedAndFiltered.csv')
             raw_data = utils.load_dataset(corpus_file_path)
 
-        corpus_strings, sentiments = utils.clean_initial_data(raw_data, confidence_threshold=0.5)
+        elif corpus.lower() == 'moviereviews':
+            raw_data = utils.load_movie_reviews()
+
+        confidence_threshold = None
+        if corpus.lower() == 'twitter':
+            confidence_threshold = 0.3
+
+        corpus_strings, sentiments = utils.clean_initial_data(raw_data, confidence_threshold=confidence_threshold)
 
         tfidf = TfidfVectorizer(
             # if we fail to parse a given character, just ignore it
@@ -42,7 +50,7 @@ class EmpathyMachines(object):
             # convert all characters to lowercase
             lowercase=True,
             # keep only this many features (all features if None)
-            max_features=10000,
+            max_features=20000,
             # smooth idf weights to prevent zero divisions
             smooth_idf=True
         )
