@@ -15,21 +15,13 @@ class EmpathyMachines(object):
         pass
 
     def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False):
-        corpus_file_path = os.path.join(module_path, 'corpora', 'aggregatedCorpusCleaned.csv')
+        corpus_file_path = os.path.join(module_path, 'corpora', 'aggregatedCorpusCleanedAndFiltered.csv')
         if corpus == 'passed_in_argument':
             raw_data = corpus_array
         else:
             raw_data = utils.load_dataset(corpus_file_path)
 
         corpus_strings, sentiments = utils.clean_initial_data(raw_data, confidence_threshold=0.5)
-
-        if print_analytics_results:
-            print('len(corpus_strings)')
-            print(len(corpus_strings))
-            print(corpus_strings[:10])
-            print('len(sentiments)')
-            print(len(sentiments))
-            print(sentiments[:10])
 
         tfidf = TfidfVectorizer(
             # if we fail to parse a given character, just ignore it
