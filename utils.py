@@ -30,6 +30,13 @@ def load_movie_reviews():
 
     # movie_reviews is a sizeable corpus to import, so only load it if we have to
     from nltk.corpus import movie_reviews
+    try:
+        movie_reviews.categories()
+    except:
+        import nltk
+        print('This appears to be your first time using the NLTK Movie Reviews corpus. We will first download the necessary corpus (this is a one-time download that might take a little while')
+        nltk.download('all')
+        from nltk.corpus import movie_reviews
 
     raw_data = []
 
