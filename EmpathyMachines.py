@@ -11,5 +11,6 @@ class EmpathyMachines(object):
         pass
 
     def train(self, corpus='Twitter'):
-        file_path = os.path.join(module_path, 'corpora', 'aggregatedCorpusCleaned.csv')
-        raw_data = utils.load_dataset(os.path.join())
+        corpus_file_path = os.path.join(module_path, 'corpora', 'aggregatedCorpusCleaned.csv')
+        raw_data = utils.load_dataset(corpus_file_path)
+        print(raw_data[:10])
