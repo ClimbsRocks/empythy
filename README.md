@@ -23,7 +23,10 @@
 
 Feel free to train a classifier on your own corpus!
 
-Here's how.
+Two ways to do this:
+1. Read in a .csv file with header row containing "sentiment", "text", and optionally, "confidence"
+1. Pass in an array of Python dictionaries, with attributes for "sentiment", "text", and optionally, "confidence"
+
 
 1. Create a .csv file with the following fields
 1. `nlp_classifier.train(corpus='custom', corpus_path='path/to/custom/corpus.csv', analytics_output=False)`
