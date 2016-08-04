@@ -54,6 +54,9 @@ class EmpathyMachines(object):
         )
 
         sparse_transformed_corpus = tfidf.fit_transform(corpus_strings)
+
+        self.tfidf_transformer = tfidf
+
         if print_analytics_results:
             X_train, X_test, y_train, y_test = train_test_split(sparse_transformed_corpus, sentiments, test_size=0.2)
         else:
@@ -71,4 +74,14 @@ class EmpathyMachines(object):
             print(self.trained_model.score(X_train, y_train))
             print('Model\'s score on the holdout data:')
             print(self.trained_model.score(X_test, y_test))
+
+
+    def predict(self, text):
+        print(text)
+        print(len(text))
+        if isinstance(text, basestring):
+            transformed_text = self.tfidf_transformer.transform([text])
+        elif type(text) is list:
+            transformed_text = self.tfidf_transformer.transform(text)
+        return self.trained_model.predict(transformed_text)
 
