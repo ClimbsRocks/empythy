@@ -16,7 +16,14 @@ class EmpathyMachines(object):
         pass
 
 
-    def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False):
+    def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False, verbose=False):
+
+        if print_analytics_results:
+            verbose = True
+
+        if verbose:
+            print('Loading the corpus')
+
         if corpus == 'passed_in_argument':
             raw_data = corpus_array
 
@@ -32,6 +39,9 @@ class EmpathyMachines(object):
             confidence_threshold = 0.3
 
         corpus_strings, sentiments = utils.clean_initial_data(raw_data, confidence_threshold=confidence_threshold)
+
+        if verbose:
+            print('Running TfidfVectorizer on the corpus')
 
         tfidf = TfidfVectorizer(
             # if we fail to parse a given character, just ignore it
@@ -67,7 +77,10 @@ class EmpathyMachines(object):
 
         model = LogisticRegression()
 
-        model.fit_transform(X_train, y_train)
+        if verbose:
+            print('Training the model')
+
+        model.fit(X_train, y_train)
 
         self.trained_model = model
 
@@ -76,6 +89,9 @@ class EmpathyMachines(object):
             print(self.trained_model.score(X_train, y_train))
             print('Model\'s score on the holdout data:')
             print(self.trained_model.score(X_test, y_test))
+
+        if verbose:
+            print('Finished training!')
 
 
     def predict(self, text):
