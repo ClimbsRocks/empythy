@@ -16,7 +16,7 @@ class EmpathyMachines(object):
         pass
 
 
-    def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False, verbose=False):
+    def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False, verbose=False, file_name=None):
 
         if print_analytics_results:
             verbose = True
@@ -24,7 +24,7 @@ class EmpathyMachines(object):
         if verbose:
             print('Loading the corpus')
 
-        if corpus == 'passed_in_argument':
+        if corpus.lower() == 'custom':
             raw_data = corpus_array
 
         elif corpus.lower() == 'twitter':
@@ -99,7 +99,7 @@ class EmpathyMachines(object):
             transformed_text = self.tfidf_transformer.transform([text])
         # check for all forms of "lists", but only after determining that this is not a string.
         # this will probably break in some edge cases, but should be fine for most standard user behavior
-        elif hasattr(N, "__len__"):
+        elif hasattr(text, "__len__"):
             transformed_text = self.tfidf_transformer.transform(text)
 
         # TODO(PRESTON):
