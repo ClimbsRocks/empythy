@@ -11,29 +11,28 @@
 1. `pip install empythy`
 1. `from empythy import EmpathyMachines`
 1. `nlp_classifier = EmpathyMachines()`
-1. `nlp_classifier.train(corpus='Twitter')`
+1. `nlp_classifier.train()`
 1. `nlp_classifier.predict(text_string)`
-
-
-1. Download the repo from GitHub (pip install coming later)
-1. `cd` into repo, and `pip install -r requirements.txt`
-1. In your Python code, `from EmpathyMachines import EmpathyMachines`
-1. `nlp_classifier = EmpathyMachines()`
-1. `nlp_classifier.train(corpus='Twitter')`
-1. `nlp_classifier.predict(text_string)`
-
 
 ### Corpora included
 
+#### NLTK Movie Reviews
+The classic sentiment corpus, 2000 movie reviews already gathered by NLTK.
 
-### Include your own corpus (UNDER CONSTRUCTION)
+#### Assembling a custom Twitter sentiment corpus
+[CrowdFlower](http://www.crowdflower.com/data-for-everyone) hosts a number of Twitter corpora that have already been graded for sentiment by panels of humans.
+
+I aggregated together 6 of their corpora into a single, aggregated and cleaned corpus, with consistent scoring labels across the entire corpus. The cleaned corpus contains over 45,000 documents, with positive, negative, and neutral sentiments.
+
+
+### Train on your own corpus
 
 Feel free to train a classifier on your own corpus!
 
 Two ways to do this:
 1. Read in a .csv file with header row containing "sentiment", "text", and optionally, "confidence"
-1. Pass in an array of Python dictionaries, with attributes for "sentiment", "text", and optionally, "confidence"
-
-
-1. Create a .csv file with the following fields
-1. `nlp_classifier.train(corpus='custom', corpus_path='path/to/custom/corpus.csv', analytics_output=False)`
+    - Pass the name of the .csv file to train, like so:
+    - `nlp_classifier.train(corpus='custom', corpus_path='path/to/custom/corpus.csv')`
+1. Pass in an array of Python dictionaries, where each dictionary has attributes for "sentiment", "text", and optionally, "confidence"
+    - `nlp_classifier.train(corpus='custom', corpus_array=my_array_of_texts)`
+    - Two important parts to this, both `corpus='custom'`, and `corpus_array=my_variable_holding_the_documents`.
