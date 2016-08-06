@@ -5,6 +5,8 @@ https://github.com/pypa/sampleproject
 
 Built using this blog post as well:
 https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/
+https://tom-christie.github.io/articles/pypi/
+http://stackoverflow.com/questions/11848030/how-include-static-files-to-setuptools-python-package
 """
 
 # Always prefer setuptools over distutils
