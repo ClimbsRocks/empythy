@@ -36,3 +36,7 @@ Two ways to do this:
 1. Pass in an array of Python dictionaries, where each dictionary has attributes for "sentiment", "text", and optionally, "confidence"
     - `nlp_classifier.train(corpus='custom', corpus_array=my_array_of_texts)`
     - Two important parts to this, both `corpus='custom'`, and `corpus_array=my_variable_holding_the_documents`.
+
+### Advanced Usage
+1. `nlp_classifier.train(verbose=False)` to turn off print status statements while training.
+1. `nlp_classifier.train(print_analytics_results=True)` to print out results of training the classifier.
