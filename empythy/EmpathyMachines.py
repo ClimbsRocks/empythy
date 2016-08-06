@@ -16,7 +16,7 @@ class EmpathyMachines(object):
         pass
 
 
-    def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False, verbose=False, file_name=None):
+    def train(self, corpus='Twitter', corpus_array=None, print_analytics_results=False, verbose=True, file_name=None):
 
         if print_analytics_results:
             verbose = True
