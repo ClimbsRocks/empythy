@@ -97,6 +97,14 @@ class EmpathyMachines(object):
     def predict(self, text):
         if isinstance(text, basestring):
             transformed_text = self.tfidf_transformer.transform([text])
-        elif type(text) is list:
+        # check for all forms of "lists", but only after determining that this is not a string.
+        # this will probably break in some edge cases, but should be fine for most standard user behavior
+        elif hasattr(N, "__len__"):
             transformed_text = self.tfidf_transformer.transform(text)
+
+        # TODO(PRESTON):
+            # consider formatting the output based on the input type
+            # so if we get passed in a string, just return a string
+            # whereas if we get passed an array, return an array.
+
         return self.trained_model.predict(transformed_text)
