@@ -8,6 +8,13 @@
 
 ## How to use
 
+1. `pip install empythy`
+1. `from empythy import EmpathyMachines`
+1. `nlp_classifier = EmpathyMachines()`
+1. `nlp_classifier.train(corpus='Twitter')`
+1. `nlp_classifier.predict(text_string)`
+
+
 1. Download the repo from GitHub (pip install coming later)
 1. `cd` into repo, and `pip install -r requirements.txt`
 1. In your Python code, `from EmpathyMachines import EmpathyMachines`
