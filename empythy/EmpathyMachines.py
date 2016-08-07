@@ -70,9 +70,33 @@ class EmpathyMachines(object):
         )
 
         ppl = Pipeline([
-            ('tfidf', tfidf),
+            ('tfidf', TfidfVectorizer()),
             ('clf', LogisticRegression())
         ])
+
+        # set all our parameters at once.
+        # the step of the pipeline we are setting parameters for is the name__ part, and the parameter we are setting is what comes after the __
+        ppl.set_params(
+            # if we fail to parse a given character, just ignore it
+            tfidf__decode_error='ignore',
+            # strip accents from characters
+            tfidf__strip_accents='unicode',
+            # break the string apart into words, not characters
+            tfidf__analyzer='word',
+            # get words in groups that range in length from 1 - 4. So "I love DoorDash" turns into "I", "love", "I love", "I love DoorDash"...
+            tfidf__ngram_range=(1,4),
+            # instead of using pre-defined stopwords, ignore all words that have an intra-document frequency > 0.7
+            # (ignore all words/phrases that appear in more than 70% of our documents)
+            tfidf__max_df=0.7,
+            # stop_words are commonly used words that don't likely differentiate a message ('of','me','a', etc.)
+            tfidf__stop_words='english',
+            # convert all characters to lowercase
+            tfidf__lowercase=True,
+            # keep only this many features (all features if None)
+            tfidf__max_features=20000,
+            # smooth idf weights to prevent zero divisions
+            tfidf__smooth_idf=True
+        )
 
         print('Running the pipeline')
 
