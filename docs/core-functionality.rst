@@ -19,15 +19,13 @@ A quick demonstration of what you're really here for: easily getting sentiment p
   # returns ['positive']
 
   text_list = [
-  "I'm annoyed by closed-minded people who try to keep others excluded from machine learning functionality.",
-  "I effing love pho.",
-  "Ummm, can you add some exclamation points to the end of that previous one??"
-  "That smells awful.",
-  "I love hiding lovely cards in your backpack to surprise you throughout the day."
+    "I effing love pho.",
+    "Ummm, can you add some exclamation points to the end of that previous one??"
+    "I love hiding lovely cards in your backpack to surprise you throughout the day."
   ]
 
   nlp_classifier.predict(text_list)
-  # returns ['negative', 'positive', 'neutral', 'negative', 'positive']
+  # returns ['positive', 'neutral', 'positive']
 
 Basic API Documentation
 =========================
@@ -37,9 +35,7 @@ First, you must instantiate a new EmpathyMachines object. Convention is to save 
 
 .. py:class:: EmapthyMachines()
 
-  Parameters
-  -----------
-  None
+  :param: None. Literally, as in, don't pass in any arguments when creating a new EmpathyMachines instance.
 
 
 .. py:method:: train(corpus=Twitter)
@@ -47,11 +43,19 @@ First, you must instantiate a new EmpathyMachines object. Convention is to save 
   This method will train your nlp classifier. This must be done before trying to get predictions.
 
   :rtype: None. This simply trains the classifier to prepare it to make predictions.
+  :param corpus: Which corpus of documents you want to train this model on. Currently, empythy ships with two corpora (Twitter, MovieReviews), along with the ability to pass in your own corpus to train on! If you're interested in getting fancy, instructions on how to train on your own custom dataset are later in this doc.
+  :type corpus: string
 
-  Included Corpora
-  -----------------
+  The included corpora are:
 
-  A description of corpora included with the module.
+    * ``Twitter``
+
+      [CrowdFlower](http://www.crowdflower.com/data-for-everyone) hosts a number of Twitter corpora that have already been graded for sentiment by panels of humans. I aggregated together 6 of their corpora into a single, aggregated and cleaned corpus, with consistent scoring labels across the entire corpus. The cleaned corpus contains over 45,000 documents, with positive, negative, and neutral sentiments, along with a score of how confident they are in that assessment.
+
+    * ``MovieReviews``
+
+      The classic NLTK corpus of movie reviews.
+
 
 
 
