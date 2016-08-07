@@ -2,8 +2,9 @@ import csv
 import os
 
 from sklearn.cross_validation import train_test_split
-from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
 
 import utils
 
@@ -38,10 +39,13 @@ class EmpathyMachines(object):
         if corpus.lower() == 'twitter':
             confidence_threshold = 0.3
 
+        # TODO(PRESTON): eventually create my own step in the pipeline and include clean_initial_data
         corpus_strings, sentiments = utils.clean_initial_data(raw_data, confidence_threshold=confidence_threshold)
 
-        if verbose:
-            print('Running TfidfVectorizer on the corpus')
+        # TODO(PRESTON): Here's where we'll start the pipelining!
+
+        # if verbose:
+        #     print('Running TfidfVectorizer on the corpus')
 
         tfidf = TfidfVectorizer(
             # if we fail to parse a given character, just ignore it
@@ -65,42 +69,56 @@ class EmpathyMachines(object):
             smooth_idf=True
         )
 
-        sparse_transformed_corpus = tfidf.fit_transform(corpus_strings)
+        ppl = Pipeline([
+            ('tfidf', tfidf),
+            ('clf', LogisticRegression())
+        ])
 
-        self.tfidf_transformer = tfidf
+        print('Running the pipeline')
 
-        if print_analytics_results:
-            X_train, X_test, y_train, y_test = train_test_split(sparse_transformed_corpus, sentiments, test_size=0.2)
-        else:
-            X_train = sparse_transformed_corpus
-            y_train = sentiments
+        ppl.fit_transform(corpus_strings, sentiments)
 
-        model = LogisticRegression()
+        self.trained_pipeline = ppl
 
-        if verbose:
-            print('Training the model')
+        # sparse_transformed_corpus = tfidf.fit_transform(corpus_strings)
 
-        model.fit(X_train, y_train)
+        # self.tfidf_transformer = tfidf
 
-        self.trained_model = model
+        # if print_analytics_results:
+        #     X_train, X_test, y_train, y_test = train_test_split(sparse_transformed_corpus, sentiments, test_size=0.2)
+        # else:
+        #     X_train = sparse_transformed_corpus
+        #     y_train = sentiments
 
-        if print_analytics_results:
-            print('Model\'s score on the training data:')
-            print(self.trained_model.score(X_train, y_train))
-            print('Model\'s score on the holdout data:')
-            print(self.trained_model.score(X_test, y_test))
+        # model = LogisticRegression()
 
-        if verbose:
-            print('Finished training!')
+        # if verbose:
+        #     print('Training the model')
+
+        # model.fit(X_train, y_train)
+
+        # self.trained_model = model
+
+        # if print_analytics_results:
+        #     print('Model\'s score on the training data:')
+        #     print(self.trained_model.score(X_train, y_train))
+        #     print('Model\'s score on the holdout data:')
+        #     print(self.trained_model.score(X_test, y_test))
+
+        # if verbose:
+        #     print('Finished training!')
 
 
     def predict(self, text):
         if isinstance(text, basestring):
-            transformed_text = self.tfidf_transformer.transform([text])
+            text = [text]
+            # transformed_text = self.tfidf_transformer.transform([text])
         # check for all forms of "lists", but only after determining that this is not a string.
         # this will probably break in some edge cases, but should be fine for most standard user behavior
-        elif hasattr(text, "__len__"):
-            transformed_text = self.tfidf_transformer.transform(text)
+        # elif hasattr(text, "__len__"):
+            # transformed_text = self.tfidf_transformer.transform(text)
+
+        return self.trained_pipeline.predict(text)
 
         # TODO(PRESTON):
             # consider formatting the output based on the input type
