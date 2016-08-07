@@ -14,6 +14,43 @@ def load_dataset(file_name):
 
         return return_data
 
+
+class NlpFeatureExtraction(BaseEstimator, TransformerMixin):
+
+    def __init__(self):
+        pass
+
+    def fit(self, X, y=None):
+        # implemented to be consistent with API requirements.
+        # this functionality doesn't actually require fitting to data at all, it's just a couple hardcoded heuristics
+        return self
+
+    def transform(self, X, y=None):
+
+        punctuation_counts = []
+        exclamation_point_counts = []
+        capital_letter_counts = []
+        # all_cap_word_counts = []
+        for text in X:
+            # rough pseudocode follows:
+
+            text_len = len(text)
+
+            punctuation_count = 0
+            exclamation_point_count = 0
+            capital_letter_count = 0
+
+            for char in text:
+                if char in punctuation_set:
+                    punctuation_count += 1
+                    if char == '!':
+                        exclamation_point_count += 1
+                elif char in capital_letter_set:
+                    capital_letter_count += 1
+            punctuation_counts.append(punctuation_count / text_len)
+            exclamation_point_counts.append(exclamation_point_count / text_len)
+            capital_letter_counts.append(capital_letter_count / text_len)
+
 def clean_initial_data(raw_data, confidence_threshold=None):
 
     corpus_strings = []
