@@ -78,6 +78,8 @@ Training on your own corpus
 
 Warning, bad pun ahead: This section also known as "flex those muscles".
 
+This section is totally optional- you can train on the included Twitter or MovieReviews corpora totally fine and never have to go through the work of assembling your own custom corpus.
+
 One of the best parts of this module is that you can train it on your own data! The corpora I included are somewhat useful, but what I'm most excited by is to see what y'all train it on. If you train it on something fun, please save your data as a .csv file and send it over! I might include it in the package for others to use.
 
 Here's what the process looks like to train on your own data:
@@ -104,6 +106,7 @@ Here's what the process looks like to train on your own data:
     #. ``sentiment``: The correct sentiment for this text.
     #. ``confidence``: OPTIONAL. If you have a confidence score for how confident you are this is the right sentiment for the message, you can pass that in here. Useful if you have, say, sentiment scored from an onsite team and sentiment scored using Amazon's Mechanical Turk. You would presumably give the onsite team a higher confidence (maybe 0.9) than the scores from Amazon's Mechanical Turk (maybe 0.5).
 
+  .. TODO(PRESTON): add in an example
 
 
 Minor Rarely Used Features
