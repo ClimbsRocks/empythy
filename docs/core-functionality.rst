@@ -11,11 +11,11 @@ A quick demonstration of what you're really here for: easily getting sentiment p
 ::
 
   from empythy import EmpathyMachines
-  nlp_classifier = EmpathyMachines()
-  nlp_classifier.train()
+  sentiment_classifier = EmpathyMachines()
+  sentiment_classifier.train()
 
   text_string = "I love machine learning! And bikes. And wearing fun party pants."
-  nlp_classifier.predict(text_string)
+  sentiment_classifier.predict(text_string)
   # returns ['positive']
 
   text_list = [
@@ -24,13 +24,13 @@ A quick demonstration of what you're really here for: easily getting sentiment p
     "I love hiding lovely cards in your backpack to surprise you throughout the day."
   ]
 
-  nlp_classifier.predict(text_list)
+  sentiment_classifier.predict(text_list)
   # returns ['positive', 'neutral', 'positive']
 
 Basic API Documentation
 =========================
 
-First, you must instantiate a new EmpathyMachines object. Convention is to save it into a variable called ``nlp_classifier``. The rest of these docs will assume that you have done exactly that (``nlp_classifier = EmpathyMachines()``). If you're headstrong enough to do it differently, we'll assume you're also smart enough to adjust your reading of these docs appropriately :)
+First, you must instantiate a new EmpathyMachines object. Convention is to save it into a variable called ``sentiment_classifier``. The rest of these docs will assume that you have done exactly that (``sentiment_classifier = EmpathyMachines()``). If you're headstrong enough to do it differently, we'll assume you're also smart enough to adjust your reading of these docs appropriately :)
 
 
 .. py:class:: EmapthyMachines()
@@ -38,7 +38,7 @@ First, you must instantiate a new EmpathyMachines object. Convention is to save 
   :param: None. Literally, as in, don't pass in any arguments when creating a new EmpathyMachines instance.
 
 
-.. py:method:: train(corpus=Twitter)
+.. py:method:: sentiment_classifier.train(corpus=Twitter)
 
   This method will train your nlp classifier. This must be done before trying to get predictions.
 
@@ -66,7 +66,7 @@ These optional features are really only useful if you're already using the core 
 
 .. index:: source document, output document
 
-.. py:method:: nlp_classifier.train(verbose=True, print_analytics_results=False)
+.. py:method:: sentiment_classifier.train(verbose=True, print_analytics_results=False)
 
     :param verbose: ``True`` by default, but you can set to ``False`` to squelch some of the pesky logging that mere mortals need for comfort while their machines learn empathy.
     :type verbose: boolean
