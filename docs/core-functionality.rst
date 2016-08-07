@@ -56,13 +56,30 @@ First, you must instantiate a new EmpathyMachines object. Convention is to save 
 
       The classic NLTK corpus of movie reviews.
 
+.. py:method:: sentiment_classifier.predict(text)
+
+  Pass in a text (or list of texts), and get a prediction back. Kind of like Christmas Eve: leave a cookie for Santa, and get presents back- and presumably magic happens in between.
+
+  :param text:
+    You can pass in either a single string, or a list (technically, nearly any iterable) of strings. If you pass in a list, you will get back a list of equal length. If you pass in a single string, you'll get back a *list* with a single string.
+
+    It's an imperfect design decision I made because I wanted to keep the return type consistent. If you don't like it, come help me build the next version- I love people who disagree with me!
+
+  :type text: string, or list of strings
+  :rtype: List.
+
+    No matter whether you pass in a string or a list, you will *always* get a list back. It's like cooking with eggs & cheese: it doesn't really matter what you toss in, you'll always get something reliably tasty out of it.
+
+    Each item in the returned list will be one of three strings: ``positive``, ``negative``, or ``neutral``.
 
 
 
-Additional Features
-====================
 
-These optional features are really only useful if you're already using the core functionality of empythy. If you haven't yet started, head back there and play around for a bit first before revisiting this page!
+
+Minor Rarely Used Features
+===========================
+
+Being an engineer, I built in other cool stuff in here that made my life easier and allowed me to be lazier. Please don't waste your time on this section if you haven't already at least run the code above in one of your projects. I promise it's not nearly as interesting as the core functionality described above.
 
 .. index:: source document, output document
 
