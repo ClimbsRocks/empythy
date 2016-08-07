@@ -42,33 +42,6 @@ class EmpathyMachines(object):
         # TODO(PRESTON): eventually create my own step in the pipeline and include clean_initial_data
         corpus_strings, sentiments = utils.clean_initial_data(raw_data, confidence_threshold=confidence_threshold)
 
-        # TODO(PRESTON): Here's where we'll start the pipelining!
-
-        # if verbose:
-        #     print('Running TfidfVectorizer on the corpus')
-
-        tfidf = TfidfVectorizer(
-            # if we fail to parse a given character, just ignore it
-            decode_error='ignore',
-            # strip accents from characters
-            strip_accents='unicode',
-            # break the string apart into words, not characters
-            analyzer='word',
-            # get words in groups that range in length from 1 - 4. So "I love DoorDash" turns into "I", "love", "I love", "I love DoorDash"...
-            ngram_range=(1,4),
-            # instead of using pre-defined stopwords, ignore all words that have an intra-document frequency > 0.7
-            # (ignore all words/phrases that appear in more than 70% of our documents)
-            max_df=0.7,
-            # stop_words are commonly used words that don't likely differentiate a message ('of','me','a', etc.)
-            stop_words='english',
-            # convert all characters to lowercase
-            lowercase=True,
-            # keep only this many features (all features if None)
-            max_features=20000,
-            # smooth idf weights to prevent zero divisions
-            smooth_idf=True
-        )
-
         ppl = Pipeline([
             ('tfidf', TfidfVectorizer()),
             ('clf', LogisticRegression())
@@ -98,15 +71,13 @@ class EmpathyMachines(object):
             tfidf__smooth_idf=True
         )
 
-        print('Running the pipeline')
+        if verbose:
+            print('Running the pipeline...')
+            print('This means transforming the data and training the model')
 
         ppl.fit_transform(corpus_strings, sentiments)
 
         self.trained_pipeline = ppl
-
-        # sparse_transformed_corpus = tfidf.fit_transform(corpus_strings)
-
-        # self.tfidf_transformer = tfidf
 
         # if print_analytics_results:
         #     X_train, X_test, y_train, y_test = train_test_split(sparse_transformed_corpus, sentiments, test_size=0.2)
@@ -114,33 +85,19 @@ class EmpathyMachines(object):
         #     X_train = sparse_transformed_corpus
         #     y_train = sentiments
 
-        # model = LogisticRegression()
-
-        # if verbose:
-        #     print('Training the model')
-
-        # model.fit(X_train, y_train)
-
-        # self.trained_model = model
-
         # if print_analytics_results:
         #     print('Model\'s score on the training data:')
         #     print(self.trained_model.score(X_train, y_train))
         #     print('Model\'s score on the holdout data:')
         #     print(self.trained_model.score(X_test, y_test))
 
-        # if verbose:
-        #     print('Finished training!')
+        if verbose:
+            print('Finished training!')
 
 
     def predict(self, text):
         if isinstance(text, basestring):
             text = [text]
-            # transformed_text = self.tfidf_transformer.transform([text])
-        # check for all forms of "lists", but only after determining that this is not a string.
-        # this will probably break in some edge cases, but should be fine for most standard user behavior
-        # elif hasattr(text, "__len__"):
-            # transformed_text = self.tfidf_transformer.transform(text)
 
         return self.trained_pipeline.predict(text)
 
@@ -148,5 +105,3 @@ class EmpathyMachines(object):
             # consider formatting the output based on the input type
             # so if we get passed in a string, just return a string
             # whereas if we get passed an array, return an array.
-
-        return self.trained_model.predict(transformed_text)
