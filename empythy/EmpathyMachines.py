@@ -1,6 +1,7 @@
 import csv
 import os
 
+from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
@@ -39,7 +40,7 @@ class EmpathyMachines(object):
         if corpus.lower() == 'twitter':
             confidence_threshold = 0.3
 
-        # TODO(PRESTON): eventually create my own step in the pipeline and include clean_initial_data
+        # This cannot be baked into our pipeline, because we only apply it to our training data, not our predictions data
         corpus_strings, sentiments = utils.clean_initial_data(raw_data, confidence_threshold=confidence_threshold)
 
         ppl = Pipeline([
