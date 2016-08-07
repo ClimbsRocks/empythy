@@ -7,6 +7,14 @@ empythy- automated nlp sentiment
 .. toctree::
    :maxdepth: 3
 
+   Installation
+
+   Core Functionality
+
+   Basic API Documentation
+
+   Training on your own corpus
+
 Installation
 =============
 
