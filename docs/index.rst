@@ -12,8 +12,6 @@ Contents:
    :maxdepth: 3
 
    core-functionality.rst
-   additional-features.rst
-
 
 
 Indices and tables
@@ -22,4 +20,8 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+
+
 
