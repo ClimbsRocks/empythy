@@ -2,7 +2,7 @@
    sphinx-quickstart on Fri Aug  5 20:04:33 2016.
 
 empythy- automated nlp sentiment
-===================================
+*********************************
 
 .. image:: empathy_hug.gif
     :width: 400px
@@ -13,7 +13,12 @@ empythy- automated nlp sentiment
 .. toctree::
    :maxdepth: 3
 
-   index.rst
+   self
+
+
+.. contents::
+
+
 
 Installation
 =============
