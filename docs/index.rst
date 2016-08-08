@@ -4,6 +4,12 @@
 empythy- automated nlp sentiment
 ===================================
 
+.. image:: empathy_hug.gif
+    :width: 400px
+    :align: center
+    :height: 358
+    :alt: "d'awwwwwwww"
+
 .. toctree::
    :maxdepth: 3
 
