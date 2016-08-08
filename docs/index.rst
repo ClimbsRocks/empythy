@@ -13,6 +13,8 @@ empythy- automated nlp sentiment
 .. toctree::
    :maxdepth: 3
 
+   index.rst
+
 Installation
 =============
 
@@ -36,7 +38,8 @@ A quick demonstration of what you're really here for: easily getting sentiment p
   text_list = [
     "I effing love pho.",
     "Ummm, can you add some exclamation points to the end of that previous one??"
-    "I hate that soggy moment when you realize that bungee cording 8 pho containers to the outside of your backpack is not, in fact, an effective way to carry noodle soup."
+    "I hate that soggy moment when you realize that bungee cording 8 pho containers \
+    to the outside of your backpack is not, in fact, an effective way to carry noodle soup."
   ]
 
   sentiment_classifier.predict(text_list)
