@@ -13,14 +13,6 @@ empythy- automated nlp sentiment
 .. toctree::
    :maxdepth: 3
 
-   Installation
-
-   Core Functionality
-
-   Basic API Documentation
-
-   Training on your own corpus
-
 Installation
 =============
 
@@ -44,11 +36,11 @@ A quick demonstration of what you're really here for: easily getting sentiment p
   text_list = [
     "I effing love pho.",
     "Ummm, can you add some exclamation points to the end of that previous one??"
-    "I love hiding lovely cards in your backpack to surprise you throughout the day."
+    "I hate that soggy moment when you realize that bungee cording 8 pho containers to the outside of your backpack is not, in fact, an effective way to carry noodle soup."
   ]
 
   sentiment_classifier.predict(text_list)
-  # returns ['positive', 'neutral', 'positive']
+  # returns ['positive', 'neutral', 'negative']
 
 Basic API Documentation
 =========================
@@ -129,19 +121,17 @@ Here's what the process looks like to train on your own data:
     #. ``sentiment``: The correct sentiment for this text.
     #. ``confidence``: OPTIONAL. If you have a confidence score for how confident you are this is the right sentiment for the message, you can pass that in here. Useful if you have, say, sentiment scored from an onsite team and sentiment scored using Amazon's Mechanical Turk. You would presumably give the onsite team a higher confidence (maybe 0.9) than the scores from Amazon's Mechanical Turk (maybe 0.5).
 
-  .. TODO(PRESTON): add in an example
 
+.. Minor Rarely Used Features
+.. ===========================
 
-Minor Rarely Used Features
-===========================
+.. Being an engineer, I built in other cool stuff in here that made my life easier and allowed me to be lazier. Please don't waste your time on this section if you haven't already at least run the code above in one of your projects. I promise it's not nearly as interesting as the core functionality described above.
 
-Being an engineer, I built in other cool stuff in here that made my life easier and allowed me to be lazier. Please don't waste your time on this section if you haven't already at least run the code above in one of your projects. I promise it's not nearly as interesting as the core functionality described above.
+.. .. index:: source document, output document
 
-.. index:: source document, output document
+.. .. py:method:: sentiment_classifier.train(verbose=True, print_analytics_results=False)
 
-.. py:method:: sentiment_classifier.train(verbose=True, print_analytics_results=False)
-
-    :param verbose: ``True`` by default, but you can set to ``False`` to squelch some of the pesky logging that mere mortals need for comfort while their machines learn empathy.
-    :type verbose: boolean
-    :param print_analytics_results: For those who never could stop asking questions. Prints some of the results from training the model. Super useful if you're training on your own data and you want to get a good handle on how close your machine is to passing the Turing Test.
-    :type print_analytics_results: boolean
+..     :param verbose: ``True`` by default, but you can set to ``False`` to squelch some of the pesky logging that mere mortals need for comfort while their machines learn empathy.
+..     :type verbose: boolean
+..     :param print_analytics_results: For those who never could stop asking questions. Prints some of the results from training the model. Super useful if you're training on your own data and you want to get a good handle on how close your machine is to passing the Turing Test.
+..     :type print_analytics_results: boolean
