@@ -27,7 +27,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.5.6',
+    version='0.9.0',
 
     description='An off-the-rack NLP sentiment classifier- upload your own corpus or use the pre-installed ones',
     long_description=long_description,
