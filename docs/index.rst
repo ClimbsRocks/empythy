@@ -48,7 +48,7 @@ A quick demonstration of what you're really here for: easily getting sentiment p
   ]
 
   sentiment_classifier.predict(text_list)
-  # returns ['positive', 'neutral', 'negative']
+  # returns ['positive', 'neutral', 'negative']. Hopefully- neutral is tough :)
 
 Basic API Documentation
 =========================
