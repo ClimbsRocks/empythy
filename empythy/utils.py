@@ -3,7 +3,7 @@ import csv
 
 def load_dataset(file_name):
 
-    with open(file_name, 'rU') as input_file:
+    with open(file_name, 'rU', encoding='latin-1') as input_file:
 
         training_rows = csv.DictReader(input_file)
 
@@ -56,7 +56,7 @@ def clean_initial_data(raw_data, confidence_threshold=None):
     corpus_strings = []
     sentiments = []
     for row in raw_data:
-        if confidence_threshold is None or (row.get('confidence', 0) != '' and row.get('confidence', 0) > confidence_threshold):
+        if confidence_threshold is None or (row.get('confidence', 0) != '' and float(row.get('confidence', 0)) > confidence_threshold):
             sentiments.append(row['sentiment'])
             corpus_strings.append(row['text'])
 

@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 
-import utils
+from empythy import utils
 
 module_path = os.path.dirname(__file__)
 
@@ -97,8 +97,12 @@ class EmpathyMachines(object):
 
 
     def predict(self, text):
-        if isinstance(text, basestring):
-            text = [text]
+        try:
+            if isinstance(text, basestring):
+                text = [text]
+        except:
+            if isinstance(text, str):
+                text = [text]
 
         return self.trained_pipeline.predict(text)
 
