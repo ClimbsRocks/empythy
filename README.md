@@ -9,10 +9,13 @@
 ## How to use
 
 1. `pip install empythy`
-1. `from empythy import EmpathyMachines`
-1. `nlp_classifier = EmpathyMachines()`
-1. `nlp_classifier.train()`
-1. `nlp_classifier.predict(text_string)`
+1.
+```
+from empythy import EmpathyMachines
+nlp_classifier = EmpathyMachines()
+nlp_classifier.train()
+nlp_classifier.predict(text_string)
+```
 
 ### Corpora included
 
@@ -29,7 +32,8 @@ I aggregated together 6 of their corpora into a single, aggregated and cleaned c
 
 Feel free to train a classifier on your own corpus!
 
-Two ways to do this:
+Two ways to do this
+
 1. Read in a .csv file with header row containing "sentiment", "text", and optionally, "confidence"
     - Pass the name of the .csv file to train, like so:
     - `nlp_classifier.train(corpus='custom', corpus_path='path/to/custom/corpus.csv')`
